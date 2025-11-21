@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./../templates/layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core">
+
+    <ui:define name="content">
+        <h:form class="p-3">
+
+            <div class="row justify-content-center">
+                    <div class="col-md-6"> <h1 class="text-center mb-4 alert alert-success">
+                            <strong>Afiliados</strong>
+                        </h1>
+                    </div>
+                </div>
+
+            <div class="mb-3">
+                <h:commandButton value="+ Agregar nuevo Afiliado" action="/afiliados/alta.xhtml"
+                    styleClass="btn btn-primary" />
+            </div>
+
+        <div class="row">
+    <ui:repeat value="#{controladorAfiliado.afiliados}" var="item">
+
+        <div class="col-md-4 col-sm-6 col-12 mb-3">
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h5 class="card-title text-primary mb-2">
+                        #{item.nombre} #{item.apellido}
+                    </h5>
+
+                    <p class="card-text mb-1"><strong>Nro Tarjeta:</strong> #{item.nroTarjeta}</p>
+                    <p class="mb-1"><strong>DNI:</strong> #{item.dni}</p>
+                    <p class="mb-1"><strong>Domicilio:</strong> #{item.domicilio}</p>
+                    <p class="mb-1"><strong>Teléfono:</strong> #{item.telefono}</p>
+                    <p class="mb-1"><strong>Email:</strong> #{item.mail}</p>
+
+                    <p class="mb-1">
+                        <strong>Fecha Nacimiento:</strong>
+                        <h:outputText value="#{item.fecNac}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p>
+
+                    <p class="mb-2">
+                        <strong>Ingreso Mutual:</strong>
+                        <h:outputText value="#{item.fecIngMut}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p>
+
+                    <span class="badge #{item.estadoAfi ? 'bg-success' : 'bg-danger'}">
+                        #{item.estadoAfi ? 'Activo' : 'Inactivo'}
+                    </span>
+
+                    <hr/>
+
+                    <!-- Acciones -->
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <!-- Editar -->
+                        <h:panelGroup rendered="#{item.estadoAfi}">
+                            <h:link value="Editar"
+                                    outcome="/afiliados/editarAfi.xhtml"
+                                    styleClass="btn btn-sm btn-primary">
+                                <f:param name="id" value="#{item.nroTarjeta}" />
+                            </h:link>
+                        </h:panelGroup>
+
+                        <!-- Dar de baja -->
+                        <h:panelGroup rendered="#{item.estadoAfi}">
+                            <h:commandButton value="Dar de baja"
+                                             action="#{controladorAfiliado.bajaLogica(item.nroTarjeta)}"
+                                             onclick="return confirm('¿Seguro que desea dar de baja este afiliado?');"
+                                             styleClass="btn btn-sm btn-danger" />
+                        </h:panelGroup>
+
+                        <!-- Activar (cuando está inactivo) -->
+                        <h:panelGroup rendered="#{not item.estadoAfi}">
+                            <h:commandButton value="Activar"
+                                             action="#{controladorAfiliado.reactivar(item.nroTarjeta)}"
+                                             onclick="return confirm('¿Seguro que desea reactivar este afiliado?');"
+                                             styleClass="btn btn-sm btn-dark" />
+                        </h:panelGroup>
+
+                        <!-- Obtener Bono -->
+                        <h:commandLink value="Obtener bono"
+                                       action="#{controladorBonos.iniciar(item)}"
+                                       immediate="true"
+                                       styleClass="btn btn-sm btn-success"
+                                       rendered="#{item.estadoAfi}">
+                            <f:setPropertyActionListener target="#{controladorBonos.afiliado}" value="#{item}" />
+                        </h:commandLink>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </ui:repeat>
+</div>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

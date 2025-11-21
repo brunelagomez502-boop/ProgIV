@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./../templates/layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core">
+
+    <ui:define name="content">
+        <h:form class="p-3">
+              
+            <div class="row justify-content-center">
+                <div class="col-md-5"> <h3 class=" mb-4 alert alert-success text-center">
+                        <strong>Comercios Adheridos</strong>
+                    </h3>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h:commandButton value="+ Agregar nuevo comercio" action="/comercios/alta.xhtml"
+                                 styleClass="btn btn-primary" />
+            </div>
+<div class="row">
+    <ui:repeat value="#{controladorComercio.comercios}" var="item">
+
+        <div class="col-md-4 col-sm-6 col-12 mb-3"> <!-- Responsivo: 3/2/1 cards por fila -->
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        #{item.nombre}
+                    </h5>
+
+                    <p class="card-text mb-1"><strong>Dirección:</strong> #{item.direccion}</p>
+                    <p class="card-text mb-1"><strong>Responsable:</strong> #{item.responsable}</p>
+                    <p class="card-text mb-1"><strong>Teléfono:</strong> #{item.telefono}</p>
+                    <p class="card-text mb-1"><strong>Email:</strong> #{item.mail}</p>
+                    <p class="card-text mb-2"><strong>Descuento:</strong> #{item.descuento}%</p>
+
+                    <p class="badge #{item.estadoCom ? 'bg-success' : 'bg-danger'}">
+                        #{item.estadoCom ? 'Activo' : 'Inactivo'}
+                    </p>
+
+                    <hr/>
+
+                    <!-- Acciones -->
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <!-- Editar (solo si está activo) -->
+                        <h:panelGroup rendered="#{item.estadoCom}">
+                            <h:link value="Editar" 
+                                    outcome="/comercios/editarCom.xhtml"
+                                    styleClass="btn btn-sm btn-primary">
+                                <f:param name="id" value="#{item.idComercios}" />
+                            </h:link>
+                        </h:panelGroup>
+
+                        <!-- Dar de baja (solo si está activo) -->
+                        <h:panelGroup rendered="#{item.estadoCom}">
+                            <h:commandButton value="Dar de baja"
+                                             action="#{controladorComercio.bajaLogica(item.idComercios)}"
+                                             onclick="return confirm('¿Seguro que desea dar de baja este comercio?');"
+                                             styleClass="btn btn-sm btn-danger" />
+                        </h:panelGroup>
+
+                        <!-- Activar (si está inactivo) -->
+                        <h:panelGroup rendered="#{not item.estadoCom}">
+                            <h:commandButton value="Activar"
+                                             action="#{controladorComercio.reactivar(item.idComercios)}"
+                                             onclick="return confirm('¿Seguro que desea reactivar este comercio?');"
+                                             styleClass="btn btn-sm btn-dark" />
+                        </h:panelGroup>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ui:repeat>
+</div>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

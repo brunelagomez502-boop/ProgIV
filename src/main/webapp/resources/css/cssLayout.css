@@ -1,0 +1,135 @@
+
+#top {
+    position: relative;
+    background-color: #036fab;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+#bottom {
+    position: relative;
+    background-color: #c2dfef;
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+}
+
+#left {
+    float: left;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+#right {
+    float: right;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+.center_content {
+    position: relative;
+    background-color: #dddddd;
+    padding: 5px;
+}
+
+.left_content {
+    background-color: #dddddd;
+    padding: 5px;
+    margin-left: 170px;
+}
+
+.right_content {
+    background-color: #dddddd;
+    padding: 5px;
+    margin: 0px 170px 0px 170px;
+}
+
+#top a:link, #top a:visited {
+  color: white;
+  font-weight : bold;
+  text-decoration: none;
+}
+
+#top a:link:hover, #top a:visited:hover  {
+  color: black;
+  font-weight : bold;
+  text-decoration : underline;
+}
+
+.navbar-nav
+ {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  display: inline-block;
+  margin-right: 20px;
+}
+.dataTable {
+    width: 100%;
+    margin: 20px auto;
+   
+   
+}
+
+.dataTable th, .dataTable td {
+   border-top: 1px solid #ccc;
+   border-bottom: 1px solid #ccc;
+    border-left: none;
+    border-right: none;
+    padding: 8px;
+    text-align: left;
+}
+
+.dataTable th {
+   
+    color: black}
+.bg-naranja {
+    background-color:#003366  !important; /* naranja fuerte */
+    color: white;
+}
+.bg-bonos{
+ background-color: red;
+ color:white;
+}
+
+/* ROBOTO */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+.btn-comercio{
+    background-color: #ffb703;
+    color:white;
+}
+
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+.card-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+table, input, .form-control {
+    font-size: 0.95rem;
+}
+.nav-link, .navbar-brand {
+    font-weight: 600;
+    
+}
+
+.card-hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}

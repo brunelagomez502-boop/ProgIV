@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./../templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:pt="jakarta.faces.passthrough">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{controladorAfiliado.id}" />
+        <f:event type="preRenderView" listener="#{controladorAfiliado.cargarAfiliado}" />
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form id="formulario" class="p-3">
+
+            <h:messages globalOnly="true" style="display:none;" />
+
+            <!-- Título fuera del recuadro -->
+            <br/>
+
+            <h1 class=" col-md-4 mb-4 alert alert-success row justify-content-center text-center">
+                <h:outputText value="#{afiliado.nroTarjeta != null ? 'Editar Afiliado' : 'Nuevo Afiliado'}"/>
+            </h1>
+
+            <!-- CARD / RECUADRO -->
+            <div class="card shadow-sm border-0 p-3" style="background:#f7f7f7; border-radius:12px;">
+                <div class="row g-3">
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="nombre" value="Nombre:" />
+                        <h:inputText id="nombre" value="#{afiliado.nombre}" required="true"
+                                     styleClass="form-control"/>
+                        <span id="errorNombre" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="apellido" value="Apellido:" />
+                        <h:inputText id="apellido" value="#{afiliado.apellido}" required="true"
+                                     styleClass="form-control"/>
+                        <span id="errorApellido" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="telefono" value="Teléfono:" />
+                        <h:inputText id="telefono" value="#{afiliado.telefono}" styleClass="form-control"/>
+                        <span id="errorTelefono" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="dni" value="Número de documento:" />
+                        <h:inputText id="dni" value="#{afiliado.dni}" required="true" styleClass="form-control"/>
+                        <span id="errorDni" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="domicilio" value="Domicilio:" />
+                        <h:inputText id="domicilio" value="#{afiliado.domicilio}" styleClass="form-control"/>
+                        <span id="errorDomicilio" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel value="Sexo:" />
+                        <h:selectOneRadio id="sexo" value="#{afiliado.sexo}">
+                            <f:selectItem itemLabel="Masculino" itemValue="M" />
+                            <f:selectItem itemLabel="Femenino" itemValue="F" />
+                            <f:selectItem itemLabel="Otro" itemValue="O" />
+                        </h:selectOneRadio>
+                        <span id="errorSexo" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="fecNac" value="Fecha de Nacimiento:" />
+                        <h:inputText id="fecNac" value="#{afiliado.fecNac}" styleClass="form-control" pt:type="date">
+                            <f:convertDateTime pattern="MM/dd/yyyy"/>
+                        </h:inputText>
+                        <span id="errorFechaNac" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="fecIngMut" value="Fecha Ingreso Mutual:" />
+                        <h:inputText id="fecIngMut" value="#{afiliado.fecIngMut}" styleClass="form-control" pt:type="date">
+                            <f:convertDateTime pattern="MM/dd/yyyy"/>
+                        </h:inputText>
+                        <span id="errorFecIngMut" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="mail" value="Correo electrónico:" />
+                        <h:inputText id="mail" value="#{afiliado.mail}" styleClass="form-control"/>
+                        <span id="errorMail" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <h:outputLabel for="chkActivo" value="Estado:" />
+                        <div class="form-check">
+                            <h:selectBooleanCheckbox id="chkActivo"
+                                                     value="#{controladorAfiliado.afiliado.estadoAfi}"
+                                                     styleClass="form-check-input" />
+
+                            <h:outputLabel for="chkActivo"
+                                           value="Activo"
+                                           styleClass="form-check-label" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h:messages globalOnly="true" styleClass="text-danger mt-2"/>
+
+            <div class="mt-4">
+                <h:commandButton value="Guardar Afiliado"
+                                 action="#{controladorAfiliado.guardar}"
+                                 styleClass="btn btn-success"
+                                 onclick="return validar();" />
+                <h:button value="Cancelar" outcome="/afiliados/afiliados.xhtml"
+                          styleClass="btn btn-secondary ms-2"/>
+            </div>
+
+        </h:form>
+
+        <h:outputScript library="javaScript" name="js.js" />
+
+    </ui:define>
+</ui:composition>

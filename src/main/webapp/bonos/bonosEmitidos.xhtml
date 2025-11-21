@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                template="./../templates/layout.xhtml">
+
+    <ui:define name="content">
+        <h:form class="p-3">
+
+            <h1 class="text-center mb-4">Bonos Emitidos</h1>
+
+            <div class="row">
+    <ui:repeat value="#{controladorBonos.listar()}" var="b">
+
+        <div class="col-md-4 col-sm-6 col-12 mb-3">
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <!-- Header del Bono -->
+                    <h5 class="card-title text-primary">
+                        Bono N° #{b.idBonos}
+                    </h5>
+
+                    <p class="mb-1"><strong>Afiliado:</strong> #{b.nroTarjeta.nombre} #{b.nroTarjeta.apellido}</p>
+                    <p class="mb-1"><strong>Comercio:</strong> #{b.idComercios.nombre}</p>
+                    
+                    <p class="mb-1">
+                        <strong>Fecha Emisión:</strong>
+                        <h:outputText value="#{b.fecEmision}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p>
+
+                    <p class="mb-2">
+                        <strong>Fecha Vencimiento:</strong>
+                        <h:outputText value="#{b.fecVencimiento}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p>
+
+                   
+
+                </div>
+            </div>
+        </div>
+
+    </ui:repeat>
+</div>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+

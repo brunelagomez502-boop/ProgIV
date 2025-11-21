@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="./../templates/layout.xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
+
+    <ui:define name="content">
+        <h:form>
+            <div class="comprobante-container">
+                <!-- Título -->
+                <h1 class="comprobante-title">Comprobante de Bono</h1>
+                <h5 class="comprobante-subtitle">Válido para un único uso en el comercio especificado</h5>
+
+                <!-- Datos del Afiliado -->
+                <div class="data-card">
+                    <div class="data-header"><i class="bi bi-person-fill"></i> Datos del Afiliado</div>
+                    <div class="data-body">
+                        <div class="field">
+                            <span class="field-label">Nombre:</span>
+                            <span class="field-value">#{controladorBonos.afiliado.nombre} #{controladorBonos.afiliado.apellido}</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-label">DNI:</span>
+                            <span class="field-value">#{controladorBonos.afiliado.dni}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Datos del Comercio -->
+                <div class="data-card">
+                    <div class="data-header"><i class="bi bi-shop"></i> Datos del Comercio</div>
+                    <div class="data-body">
+                        <div class="field">
+                            <span class="field-label">Nombre:</span>
+                            <span class="field-value">#{controladorBonos.comercioSeleccionado.nombre}</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-label">Dirección:</span>
+                            <span class="field-value">#{controladorBonos.comercioSeleccionado.direccion}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detalles del Bono -->
+                <div class="data-card">
+                    <div class="data-header"><i class="bi bi-ticket-perforated-fill"></i> Detalles del Bono</div>
+                    <div class="data-body">
+                        <div class="field">
+                            <span class="field-label">Porcentaje de descuento:</span>
+                            <span class="field-value">#{controladorBonos.comercioSeleccionado.descuento}%</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-label">Fecha de Emisión:</span>
+                            <span class="field-value">
+                                <h:outputText value="#{controladorBonos.bono.fecEmision}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </span>
+                        </div>
+                        <div class="field">
+                            <span class="field-label">Vencimiento:</span>
+                            <span class="field-value">
+                                <h:outputText value="#{controladorBonos.bono.fecVencimiento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+
+                 <div class="comprobante-actions">
+                     <h:button value="Volver al listado de afiliados" outcome="/afiliados/afiliados.xhtml" styleClass="btn btn-secondary ms-2"/>
+                </div>
+                                 <div class="comprobante-actions">
+                     <h:commandButton value="Descargar PDF"
+                 action="#{controladorBonos.descargarPDF(controladorBonos.bono.idBonos)}"
+                 styleClass="btn btn-danger"/>
+
+
+                </div>
+            </div>
+
+            <!-- Estilos internos -->
+            <style>
+                .comprobante-container {
+                    max-width: 700px;
+                    margin: 30px auto;
+                    padding: 25px;
+                    border: 1px solid #ccc;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    background-color: #fff;
+                    font-family: Arial, sans-serif;
+                }
+
+                .comprobante-title {
+                    text-align: center;
+                    color: #2E3A59;
+                    margin-bottom: 5px;
+                    font-size: 28px;
+                }
+
+                .comprobante-subtitle {
+                    text-align: center;
+                    font-weight: normal;
+                    color: #555;
+                    margin-bottom: 25px;
+                }
+
+                .data-card {
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                    padding: 15px;
+                    background-color: #f9f9f9;
+                }
+
+                .data-header {
+                    font-weight: bold;
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                    color: #2E3A59;
+                }
+
+                .data-header i {
+                    margin-right: 8px;
+                    color: #007bff;
+                }
+
+                .data-body .field {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 5px 0;
+                }
+
+                .field-label {
+                    font-weight: bold;
+                    color: #333;
+                }
+
+                .field-value {
+                    background-color: #fff;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    padding: 3px 8px;
+                    color: #555;
+                    min-width: 150px;
+                    text-align: center;
+                }
+
+                .comprobante-actions {
+                    margin-top: 25px;
+                    text-align: center;
+                }
+
+                .comprobante-actions .btn-primary,
+                .comprobante-actions .btn-secondary {
+                    padding: 10px 20px;
+                    margin: 5px;
+                    border-radius: 5px;
+                    border: none;
+                    color: #fff;
+                    font-size: 15px;
+                    cursor: pointer;
+                }
+
+                .btn-primary { background-color: #007bff; }
+                .btn-primary:hover { background-color: #0056b3; }
+
+                .btn-secondary { background-color: #28a745; }
+                .btn-secondary:hover { background-color: #1e7e34; }
+
+                /* Responsive */
+                @media (max-width: 480px) {
+                    .data-body .field {
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+                    .field-value {
+                        width: 100%;
+                        margin-top: 3px;
+                    }
+                }
+            </style>
+        </h:form>
+    </ui:define>
+</ui:composition>

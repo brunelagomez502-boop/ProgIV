@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core">
+
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    </head>
+    <ui:composition template="/templates/layout.xhtml">
+        <ui:define name="content">
+
+            <h:form class="p-4">
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6"> <h1 class="text-center mb-4 alert alert-success">
+                            <strong>Panel de Administración</strong>
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- 🔹 Sección de acceso rápido -->
+                <div class="row justify-content">
+                    <div class="col-md-3"> <h3 class=" mb-4 alert alert-success">
+                            <strong>Acceso rápido</strong>
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 text-center shadow-sm card-hover">
+                            <div class="card-body">
+                                <i class="bi bi-people-fill fs-1 mb-2"></i>
+                                <h3 class="card-title">Afiliados</h3>
+                                <p class="card-text">Gestionar afiliados registrados en el sistema.</p>
+                                <h:button value="Ver Afiliados" outcome="/afiliados/afiliados.xhtml" styleClass="btn btn-primary"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 text-center shadow-sm card-hover">
+                            <div class="card-body">
+                                <i class="bi bi-shop fs-1 mb-2"></i>
+                                <h3 class="card-title">Comercios</h3>
+                                <p class="card-text">Administrar los comercios adheridos.</p>
+                                <h:button value="Ver Comercios" outcome="/comercios/comercios.xhtml" styleClass="btn btn-success"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 text-center shadow-sm card-hover">
+                            <div class="card-body">
+                                <i class="bi bi-receipt-cutoff fs-1 mb-2"></i>
+                                <h3 class="card-title">Listado de bonos</h3>
+                                <p class="card-text">Ver el listado de bonos.</p>
+                                <h:button value="Ver Listado" outcome="/bonos/bonosEmitidos.xhtml" styleClass="btn btn-danger"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Sección de estadísticas -->
+                <div class="row justify-content">
+                    <div class="col-md-3"> <h3 class=" mb-4 alert alert-success">
+                            <strong>Estadísticas</strong>
+                        </h3>
+                    </div>
+                </div>
+                <div class="row g-3">
+
+                    <div class="col-12 col-md-4">
+                        <div class="card text-white bg-primary text-center shadow-sm">
+                            <div class="card-body py-3">
+                                <h5 class="card-title mb-2">Total de Afiliados</h5>
+                                <h:outputText value="#{controladorEstadisticas.totalAfiliados}" styleClass="fs-5"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="card text-white bg-success text-center shadow-sm">
+                            <div class="card-body py-3">
+                                <h5 class="card-title mb-2">Total de Comercios</h5>
+                                <h:outputText value="#{controladorEstadisticas.totalComercios}" styleClass="fs-5"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="card text-white bg-danger text-center shadow-sm">
+                            <div class="card-body py-3">
+                                <h5 class="card-title mb-2">Bonos Emitidos</h5>
+                                <h:outputText value="#{controladorEstadisticas.totalBonos}" styleClass="fs-5"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

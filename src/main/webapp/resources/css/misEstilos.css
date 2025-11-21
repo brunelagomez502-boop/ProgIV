@@ -1,0 +1,19 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 16 nov 2025, 17:15:00
+    Author     : roble
+*/
+
+body {
+    /* Esta es la forma correcta en JSF */
+    background-image: url(#{resource['imagenes/Logo.jpg']});
+
+        /* El resto de tus estilos */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+}

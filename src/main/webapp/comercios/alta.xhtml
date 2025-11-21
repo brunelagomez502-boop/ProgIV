@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./../templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:pt="jakarta.faces.passthrough">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{controladorComercio.cargarComercio}" />
+    </f:metadata>
+
+    <ui:define name="content">
+        <br/>
+        <h1 class=" col-md-4 mb-4 alert alert-success row justify-content-center text-center">
+            <h:outputText value="#{controladorComercio.id != null ? 'Editar Comercio' : 'Nuevo Comercio'}"/>
+        </h1>
+
+        <div class="p-3 mb-4" style="background:#f2f2f2; border-radius:10px;">
+
+            <h:form id="formulario">
+
+                <h:messages globalOnly="true" style="display:none;" />
+
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="nombre" value="Nombre:" />
+                        <h:inputText id="nombre" value="#{comercio.nombre}" styleClass="form-control"/>
+                        <span id="errorNombre" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="direccion" value="Dirección:" />
+                        <h:inputText id="direccion" value="#{comercio.direccion}" styleClass="form-control"/>
+                        <span id="errorDireccion" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="responsable" value="Responsable:" />
+                        <h:inputText id="responsable" value="#{comercio.responsable}" styleClass="form-control"/>
+                        <span id="errorResponsable" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="telefono" value="Teléfono:" />
+                        <h:inputText id="telefono" value="#{comercio.telefono}" 
+                                     styleClass="form-control" pt:placeholder="ej: 1234567"/>
+                        <span id="errorTelefono" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="email" value="Email:" />
+                        <h:inputText id="email" value="#{comercio.mail}" 
+                                     styleClass="form-control" pt:placeholder="ej: algo@algo.com"/>
+                        <span id="errorMail" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="descuento" value="Descuento (%):" />
+                        <h:inputText id="descuento" value="#{comercio.descuento}" styleClass="form-control"/>
+                        <span id="errorDescuento" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h:outputLabel for="fecIniAct" value="Fecha de inicio de actividad:" />
+                        <h:inputText id="fecIniAct" value="#{comercio.fecIniAct}" pt:type="date"
+                                     styleClass="form-control">
+                            <f:convertDateTime pattern="yyyy-MM-dd" timeZone="America/Argentina/Buenos_Aires"/>
+                        </h:inputText>
+                        <span id="errorFechaInicio" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h:commandButton value="Guardar Comercio"
+                                     action="#{controladorComercio.guardar}"
+                                     styleClass="btn btn-success"
+                                     onclick="return validarComercio()"/>
+                    <h:button value="Cancelar"
+                              outcome="/comercios/comercios.xhtml"
+                              styleClass="btn btn-secondary ms-2"/>
+                </div>
+
+            </h:form>
+
+        </div>
+
+        <h:outputScript library="javaScript" name="js.js" />
+    </ui:define>
+</ui:composition>

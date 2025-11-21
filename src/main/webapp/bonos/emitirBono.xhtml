@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="./../templates/layout.xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
+
+    <ui:define name="content">
+
+        <h:form style="max-width: 500px; margin: 50px auto; padding: 30px; background-color: #f8f9fa; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-family: Arial, sans-serif;">
+
+            <h1 style="text-align:center; color:#333; margin-bottom: 30px;">
+                Emitir bono para:<br/>
+                <span style="color:#007bff;">#{controladorBonos.afiliado.nombre} #{controladorBonos.afiliado.apellido}</span>
+            </h1>
+
+            <div style="margin-bottom: 20px;">
+                <h:outputLabel for="comercio" value="Seleccione Comercio:" style="display:block; font-weight:bold; margin-bottom:5px;" />
+                <h:selectOneMenu id="comercio"
+                                 value="#{controladorBonos.comercioSeleccionado}"
+                                 converter="comercioConverter"
+                                 style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc; font-size: 14px;">
+                    <f:selectItem itemLabel="--Seleccione--" itemValue="#{null}" />
+                    <f:selectItems value="#{controladorBonos.listarComercios()}"
+                                   var="c"
+                                   itemLabel="#{c.nombre}"
+                                   itemValue="#{c}" />
+                </h:selectOneMenu>
+            </div>
+
+            <h:messages globalOnly="true" style="color:red; margin-bottom: 15px;" />
+
+            <h:commandButton value="Emitir Bono" action="#{controladorBonos.emitirBono}"
+                             style="width:100%; padding: 12px; background-color:#007bff; color:white; border:none; border-radius:5px; font-size:16px; cursor:pointer;"
+                             onmouseover="this.style.backgroundColor='#0056b3';"
+                             onmouseout="this.style.backgroundColor='#007bff';"
+                             />
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
